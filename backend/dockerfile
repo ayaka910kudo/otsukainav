@@ -1,0 +1,13 @@
+# Maven + JDK17 の開発用イメージ
+FROM maven:3.9.2-eclipse-temurin-17
+WORKDIR /app
+
+# pom.xml だけ先にコピーして依存関係を解決
+COPY pom.xml ./
+RUN mvn dependency:go-offline
+
+# ソースコードをコピー（開発時はボリュームマウントで上書き）
+COPY src ./src
+
+# 開発サーバー起動
+CMD ["mvn", "spring-boot:run"]
