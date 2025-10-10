@@ -1,0 +1,12 @@
+FROM node:20
+WORKDIR /app
+
+# package.jsonだけ先にコピーして依存インストール
+COPY package*.json ./
+RUN npm install
+
+# 開発中は src をマウントするのでコピー不要
+# COPY . .
+
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
