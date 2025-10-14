@@ -1,38 +1,37 @@
-package com.example.inventory.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
-    private String note;
-    private int threshold;          // 在庫アラート閾値
-    private boolean hasExpiry;      // trueなら期限あり
-    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private int price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "item")
-    private List<Stock> stocks;
-
-    @OneToMany(mappedBy = "item")
-    private List<PurchaseHistory> purchaseHistories;
+    @Column(nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
+

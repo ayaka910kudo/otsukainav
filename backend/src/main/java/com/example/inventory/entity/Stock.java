@@ -1,15 +1,16 @@
-package com.example.inventory.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Stock {
 
     @Id
@@ -17,10 +18,20 @@ public class Stock {
     private Long id;
 
     private int quantity;
-    private LocalDate expiryDate;     // hasExpiry=trueのとき必須
-    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @Column(nullable = false, updatable = false)
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false)
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
