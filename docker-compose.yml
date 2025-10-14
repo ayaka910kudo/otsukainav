@@ -27,6 +27,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: app_pass
     volumes:
       - ./backend/src:/app/src
+      - ./backend/pom.xml:/app/pom.xml
     ports:
       - "8080:8080"
     networks:
