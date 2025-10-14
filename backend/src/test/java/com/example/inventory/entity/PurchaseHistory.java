@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-public class Stock {
+public class PurchaseHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int quantity;
-    private LocalDate expiryDate;     // hasExpiry=trueのとき必須
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDate expiryDate;       // hasExpiry=trueのとき必須
+    private LocalDateTime purchasedAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "item_id")
