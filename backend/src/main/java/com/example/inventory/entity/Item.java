@@ -5,13 +5,17 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"stocks","purchaseHistories"})
+@EqualsAndHashCode(exclude = {"stocks","purchaseHistories"})
 public class Item {
 
     @Id
@@ -23,9 +27,21 @@ public class Item {
 
     private int price;
 
+    @Column(length = 500)  // 任意フィールド
+    private String note;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @Column(nullable = false)
+    private int threshold; // 残り個数アラート
+
+    @Column(nullable = false)
+    private boolean hasExpiry;  // 追加
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
@@ -34,5 +50,11 @@ public class Item {
     @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "item")
+    private List<Stock> stocks;
+
+    @OneToMany(mappedBy = "item")
+    private List<PurchaseHistory> purchaseHistories;
 }
 

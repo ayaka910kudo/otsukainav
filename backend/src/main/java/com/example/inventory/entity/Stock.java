@@ -4,14 +4,18 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "stocks")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode
 public class Stock {
 
     @Id
@@ -21,13 +25,12 @@ public class Stock {
     @Column(nullable = false)
     private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id",nullable = false)
-    private Item item;
+    @Column(name = "expiry_date")
+    private LocalDate expiryDate;
 
     @ManyToOne
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

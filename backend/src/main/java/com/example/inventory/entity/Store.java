@@ -5,13 +5,17 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "stores")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = {"items","purchaseHistories"})
+@EqualsAndHashCode(exclude = {"items","purchaseHistories"})
 public class Store {
 
     @Id
@@ -22,7 +26,7 @@ public class Store {
     private String name;
 
     @Column(length = 255)
-    private String address;
+    private String location;
 
 
     @Column(nullable = false, updatable = false)
@@ -32,4 +36,10 @@ public class Store {
     @Column(nullable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "store")
+    private List<Item> items;
+
+    @OneToMany(mappedBy = "store")
+    private List<PurchaseHistory> purchaseHistories;
 }
