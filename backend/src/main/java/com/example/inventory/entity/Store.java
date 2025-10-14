@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,10 +18,12 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100, unique = true)
     private String name;
 
+    @Column(length = 255)
     private String address;
+
 
     @Column(nullable = false, updatable = false)
     @CreationTimestamp

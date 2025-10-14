@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,10 +18,11 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private int quantity;
 
     @ManyToOne
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "item_id",nullable = false)
     private Item item;
 
     @ManyToOne

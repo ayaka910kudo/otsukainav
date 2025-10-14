@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.inventory.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,9 +18,11 @@ public class PurchaseHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private int quantity;
 
-    private int totalPrice;
+//nullを許容するのでIntegerを使用
+    private Integer totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
