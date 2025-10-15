@@ -14,8 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString(exclude = {"items","purchaseHistories"})
-@EqualsAndHashCode(exclude = {"items","purchaseHistories"})
+@ToString(exclude = "items")
+@EqualsAndHashCode(exclude = "items")
 public class Store {
 
     @Id
