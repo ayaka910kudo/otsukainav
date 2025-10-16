@@ -12,7 +12,10 @@ import java.util.List;
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long> {
 
-  // 商品ごとの在庫を取得
+  // 商品ごとの在庫を取得（基本版）
+  List<Stock> findByItemId(Long itemId);
+
+  // 商品ごとの在庫を取得（期限順ソート版）
   List<Stock> findByItemIdOrderByExpiryDateAsc(Long itemId);
 
   // 期限が迫っている在庫

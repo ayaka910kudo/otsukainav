@@ -15,6 +15,9 @@ public interface StoreRepository extends JpaRepository<Store, Long> {
   // 名前で検索（Store選択時に必要）
   Optional<Store> findByName(String name);
 
+  // 名前で部分一致検索
+  List<Store> findByNameContainingIgnoreCase(String name);
+
   // 場所で検索
   List<Store> findByLocationContainingIgnoreCase(String location);
 }
