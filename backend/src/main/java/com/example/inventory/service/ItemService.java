@@ -64,4 +64,17 @@ public class ItemService {
     public int updateStoreToNull(Long storeId) {
         return itemRepository.updateStoreToNull(storeId);
     }
+
+    // ===== ビジネスロジック =====
+
+    // 在庫アラート機能（Item単位）
+    // 注意: 実際の在庫数チェックはStockServiceで行うため、
+    // このメソッドは基本的な閾値チェックのみ
+    public List<Item> getItemsWithLowStock() {
+        // 閾値が設定されている商品を取得
+        // 実際の在庫数との比較はStockServiceで行う
+        return findAll().stream()
+                .filter(item -> item.getThreshold() > 0)
+                .toList();
+    }
 }
