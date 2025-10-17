@@ -25,8 +25,6 @@ public class Item {
     @Column(nullable = false, length = 150)
     private String name;
 
-    private int price;
-
     @Column(length = 500)  // 任意フィールド
     private String note;
     @ManyToOne
